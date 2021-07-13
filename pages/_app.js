@@ -1,0 +1,95 @@
+/*
+ * @Author: your name
+ * @Date: 2021-07-01 11:42:41
+ * @LastEditTime: 2021-07-05 15:04:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /icp-dao/Users/chenglei/work/idena-explorer/pages/_app.js
+ */
+/* eslint-disable react/jsx-props-no-spreading */
+// pages/_app.js
+import '../styles/index.scss'
+import Head from 'next/head'
+import { Helmet } from 'react-helmet'
+import { ReactQueryConfigProvider } from 'react-query'
+// import { SessionProvider } from '../shared/utils/session-context'
+
+const queryConfig = {
+    // Global
+    refetchAllOnWindowFocus: false,
+    cacheTime: 60 * 1000,
+    // useQuery
+    retry: 1,
+    refetchOnMount: true
+}
+
+export default function MyApp ({ Component, pageProps }) {
+    return (
+        <>
+            <Helmet
+                defaultTitle="ICP View"
+                titleTemplate="%s - ICP View"
+            />
+
+            <Head>
+                <meta charSet="UTF-8" />
+
+                <meta httpEquiv="X-UA-Compatible" content="chrome=1" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+                />
+                <meta
+                    name="description"
+                    content="Idena Explorer allows you to explore and search the Idena blockchain for addresses, identities, transactions, flips, blocks, invitations, epochs, mining rewards and validation results taking place on Idena (ICP)"
+                />
+
+                {/* <link rel="shortcut icon" href="/favicon.ico" />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/android-chrome-192x192.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="256x256"
+          href="/android-chrome-256x256.png"
+        /> */}
+                <meta name="msapplication-TileColor" content="#2456ec" />
+                <meta name="theme-color" content="#ffffff" />
+
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image" content="./og_image.jpg" />
+                <meta property="og:title" content="" />
+                <meta property="og:description" content="" />
+            </Head>
+            <ReactQueryConfigProvider config={queryConfig}>
+                {/* <SessionProvider> */}
+                <Component {...pageProps} />
+                {/* </SessionProvider> */}
+            </ReactQueryConfigProvider>
+        </>
+    )
+}

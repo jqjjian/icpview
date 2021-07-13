@@ -1,0 +1,24 @@
+language: node_js
+node_js: '10'
+
+services:
+  - docker
+
+branches:
+  only:
+    - 'master'
+
+matrix:
+  include:
+    - if: type = pull_request
+      install:
+        - npm ci
+      script:
+        - npm run lint
+        - npm run build
+    - if: type != pull_request
+      script:
+        - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t explorer .
+        - docker tag explorer $DOCKER_USERNAME/explorer:latest
+        - docker push $DOCKER_USERNAME/explorer:latest
